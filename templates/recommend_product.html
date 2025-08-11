@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Text Query Interface</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      .navbar-custom {
+        background-color: #0d6efd; /* Bootstrap primary color */
+      }
+      .navbar-custom a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 15px;
+      }
+      .navbar-custom a:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body class="bg-light">
+    <nav class="navbar navbar-custom">
+      <div class="container-fluid">
+        <a class="text-decoration-none" href="/">Text Query</a>
+        <a class="text-decoration-none" href="./ocr-query">Image Query</a>
+        <a class="text-decoration-none" href="./image-product-search"
+          >Product Query</a
+        >
+      </div>
+    </nav>
+
+    <div class="container py-5">
+      <h2 class="mb-4">Text Query Interface</h2>
+      <form id="textQueryForm" method="POST" class="mb-4">
+        <div class="mb-3">
+          <label for="queryInput" class="form-label">Enter your query:</label>
+          <input
+            type="text"
+            name="query"
+            class="form-control"
+            id="queryInput"
+            placeholder="e.g. Best smartphones under $500"
+          />
+         
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Query</button>
+      </form>
+       {% if error %}
+          <small id="nlpResponse" class=" text-danger  ">
+            An error occured "{{ error }}"
+          </small>
+       {% endif %}
+      <div class="mb-4">
+        <h4>Response:</h4>
+        <p id="nlpResponse" class="border p-3 bg-white rounded shadow-sm">
+          {% if query %} You searched for "{{ query }}" {% endif %}
+        </p>
+      </div>
+
+      <div>
+        <h4>Similar Products Detail</h4>
+        <table class="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>InvoiceNo</th>
+              <th>Country</th>
+              <th>Quantity</th>
+              <th>UnitPrice</th>
+              <th>InvoiceDate</th>
+              <th>CustomerID</th>
+              <th>StockCode</th>
+            </tr>
+          </thead>
+          <tbody id="productTableBody">
+            {% for match in matches %}
+            <tr>
+              <td>{{ match["description"] }}</td>
+              <td>{{ match["InvoiceNo"] }}</td>
+              <td>{{ match["Country"] }}</td>
+              <td>{{ match["Quantity"] }}</td>
+              <td>{{match["UnitPrice"] }}</td>
+              <td>{{ match["InvoiceDate"] }}</td>
+              <td>{{ match["CustomerID"] }}</td>
+              <td>{{ match["StockCode"] }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
