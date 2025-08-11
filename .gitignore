@@ -2,3 +2,6 @@
 /.vscode
 /venv
 /venv_tf219
+
+__pycache__/
+*.py[cod]
