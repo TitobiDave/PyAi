@@ -125,4 +125,7 @@ Participants are required to create two sets of videos for each module, detailin
 
 - *Web Framework*: Use Flask for developing the backend. Flask provides flexibility and ease of use for setting up API services.
 - *Vector Database*: Integrate Pinecone to manage and query vector data efficiently. Pinecone supports scalable vector searches which are crucial for the recommendation systems in this project.
-"# PyApp" 
+"# PyApp"
+ 
+### Python version 
+3.10.0
